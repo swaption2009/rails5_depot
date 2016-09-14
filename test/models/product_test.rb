@@ -1,8 +1,14 @@
+#---
+# Excerpted from "Agile Web Development with Rails 5",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material,
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose.
+# Visit http://www.pragmaticprogrammer.com/titles/rails5 for more book information.
+#---
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
-  fixtures :products
-
   test "product attributes must not be empty" do
     product = Product.new
     assert product.invalid?
@@ -23,7 +29,7 @@ class ProductTest < ActiveSupport::TestCase
 
     product.price = 0
     assert product.invalid?
-    assert_equal ["must be greater than or equal to 0.01"],
+    assert_equal ["must be greater than or equal to 0.01"], 
       product.errors[:price]
 
     product.price = 1
@@ -40,8 +46,8 @@ class ProductTest < ActiveSupport::TestCase
   test "image url" do
     ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
              http://a.b.c/x/y/z/fred.gif }
-    bad = %w{ fred.doc fred.GIF/more fred.gif.more }
-
+    bad = %w{ fred.doc fred.gif/more fred.gif.more }
+    
     ok.each do |name|
       assert new_product(name).valid?, "#{name} shouldn't be invalid"
     end
@@ -53,9 +59,9 @@ class ProductTest < ActiveSupport::TestCase
 
   test "product is not valid without a unique title" do
     product = Product.new(title:       products(:ruby).title,
-                          description: products(:ruby).description,
-                          price:       products(:ruby).price,
-                          image_url:   products(:ruby).image_url)
+                          description: "yyy", 
+                          price:       1, 
+                          image_url:   "fred.gif")
 
     assert product.invalid?
     assert_equal ["has already been taken"], product.errors[:title]
@@ -63,13 +69,13 @@ class ProductTest < ActiveSupport::TestCase
 
   test "product is not valid without a unique title - i18n" do
     product = Product.new(title:       products(:ruby).title,
-                          description: products(:ruby).description,
-                          price:       products(:ruby).price,
-                          image_url:   products(:ruby).image_url)
+                          description: "yyy", 
+                          price:       1, 
+                          image_url:   "fred.gif")
 
     assert product.invalid?
     assert_equal [I18n.translate('errors.messages.taken')],
                  product.errors[:title]
   end
-
+  
 end
