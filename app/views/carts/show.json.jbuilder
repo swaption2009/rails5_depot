@@ -1,1 +1,1 @@
-json.extract! @cart, :id, :created_at, :updated_at
+json.partial! "carts/cart", cart: @cart

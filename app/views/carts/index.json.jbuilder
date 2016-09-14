@@ -1,4 +1,1 @@
-json.array!(@carts) do |cart|
-  json.extract! cart, :id
-  json.url cart_url(cart, format: :json)
-end
+json.array! @carts, partial: 'carts/cart', as: :cart
