@@ -52,7 +52,7 @@ class LineItemsController < ApplicationController
   end
 
   # PATCH/PUT /line_items/1
-  # PATCH/PUT /line_items/1.json
+  # PATCH/PUT /line_items/1.jsonØ
   def update
     respond_to do |format|
       if @line_item.update(line_item_params)
